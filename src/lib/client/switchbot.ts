@@ -20,7 +20,7 @@ export class Switchbot {
 		const signTerm = crypto.createHmac('sha256', validatedSecret)
 			.update(Buffer.from(seed, 'utf-8'))
 			.digest()
-		const sign =signTerm.toString('base64')
+		const sign = signTerm.toString('base64')
 
 		this.apiVersion = apiVersion
 
@@ -28,16 +28,17 @@ export class Switchbot {
 			'Authorization': validatedToken,
 			'sign': sign,
 			'nonce': nonce,
-			't': t,
+			't': t
 		}
 
 		this.client = new rm.RestClient('playground', BASE_URL)
 	}
 
 	public getDevices = async () => {
-		const response = await this.client.get<DeviceList>(`/${this.apiVersion}/devices`, {
-			additionalHeaders: this.headers
-		})
+		const response = await this.client.get<DeviceList>(
+			`/${this.apiVersion}/devices`,
+			{ additionalHeaders: this.headers }
+		)
 
 		const result = response.result
 
@@ -45,9 +46,10 @@ export class Switchbot {
 	}
 
 	public getDeviceStatus = async (deviceId: string) => {
-		const response = await this.client.get<DeviceStatus>(`/${API_VERSION}/devices/${deviceId}/status`, {
-			additionalHeaders: this.headers
-		})
+		const response = await this.client.get<DeviceStatus>(
+			`/${API_VERSION}/devices/${deviceId}/status`,
+			{ additionalHeaders: this.headers }
+		)
 
 		const result = response.result
 
