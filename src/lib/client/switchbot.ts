@@ -1,4 +1,4 @@
-import { v4 as uuid, validate } from 'uuid'
+import { v4 as uuid } from 'uuid'
 import * as crypto from 'crypto'
 import * as rm from 'typed-rest-client'
 import { API_VERSION, BASE_URL } from '../../constants/switchbot'
