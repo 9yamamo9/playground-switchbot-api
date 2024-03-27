@@ -8,19 +8,19 @@ export interface ISwitchbotResource {
 
 @injectable()
 export default class Switchbot {
-	private readonly client: ISwitchbotResource
+	private readonly resource: ISwitchbotResource
 
 	constructor(
-		@inject('ISwitchbotResource') client: ISwitchbotResource
+		@inject('ISwitchbotResource') resource: ISwitchbotResource
 	) {
-		this.client = client
+		this.resource = resource
 	}
 
 	public getDevices = async () => {
-		return await this.client.getDevices()
+		return await this.resource.getDevices()
 	}
 
 	public getDeviceStatus = async (deviceId: string) => {
-		return await this.client.getDeviceStatus(deviceId)
+		return await this.resource.getDeviceStatus(deviceId)
 	}
 }
