@@ -4,7 +4,18 @@ export type DeviceList = BaseResponse & {
 		infraredRemoteList: InfraredRemote[]
 	}
 }
+
+export type Device = BaseDevice
+
 export type DeviceStatus = BaseResponse & { body: MotionSensorStatus }
+
+export interface MotionSensorStatus {
+	deviceId: string
+	deviceType: string
+	battery: number
+	version: string
+	hubDeviceId: string
+}
 
 interface BaseResponse {
 	statusCode: number
@@ -19,19 +30,9 @@ interface BaseDevice {
 	hubDeviceId: string
 }
 
-type Device = BaseDevice
-
 interface InfraredRemote {
 	deviceId: string
 	deviceName: string
 	remoteType: string
-	hubDeviceId: string
-}
-
-interface MotionSensorStatus {
-	deviceId: string
-	deviceType: string
-	battery: number
-	version: string
 	hubDeviceId: string
 }
