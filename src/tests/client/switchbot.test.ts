@@ -16,7 +16,7 @@ class FakeSwitchbotResource implements ISwitchbotResource {
 	}
 
 	public getDeviceStatus = async (deviceId: string): Promise<MotionSensorStatus> => {
-		if (deviceId !== 'CCE80249C5EF') throw Error('deviceId is not correct.')
+		if (deviceId !== 'CCE80249C5EF') throw Error('Filed to get device status.')
 
 		return {
 			deviceId: 'CCE80249C5EF',
@@ -71,5 +71,9 @@ describe('getDeviceStatus', () => {
 		}
 
 		expect(actual).toEqual(expected)
+	})
+
+	test<LocalTestContext>('device is no exist', async ({ switchbot }) => {
+		await expect(() => switchbot.getDeviceStatus('dummy')).rejects.toThrowError('Filed to get device status.')
 	})
 })
