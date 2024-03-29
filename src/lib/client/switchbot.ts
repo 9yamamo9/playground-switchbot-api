@@ -1,10 +1,11 @@
-import { Device, MotionSensorStatus } from '../type/switchbot'
+import { Device, MotionSensorStatus, WebhookConfigurationDetailsBody } from '../type/switchbot'
 import { inject, injectable } from 'tsyringe'
 
 export interface ISwitchbotResource {
 	getDevices: () => Promise<Device[]>
 	getDeviceStatus: (deviceId: string) => Promise<MotionSensorStatus>
-	queryWebhookConfigure: () => Promise<string[]>
+	queryWebhookUrls: () => Promise<string[]>
+	queryWebhookDetails: (url: string) => Promise<WebhookConfigurationDetailsBody[]>
 }
 
 @injectable()
@@ -25,7 +26,11 @@ export default class Switchbot {
 		return await this.resource.getDeviceStatus(deviceId)
 	}
 
-	public queryWebhookConfigure = async () => {
-		return await this.resource.queryWebhookConfigure()
+	public queryWebhookConfigure = async (url: string) => {
+		const urls = await this.resource.queryWebhookUrls()
+
+		// if (!urls.includes(url)) throw Error('A target Webhook URL is not exist.')
+
+		return await this.resource.queryWebhookDetails(url)
 	}
 }

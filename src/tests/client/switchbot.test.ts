@@ -27,10 +27,20 @@ class FakeSwitchbotResource implements ISwitchbotResource {
 		}
 	}
 
-	public queryWebhookConfigure = async (): Promise<string[]> => {
+	public queryWebhookUrls = async (): Promise<string[]> => {
 		return [
 			'https://dummy.com/webhook'
 		]
+	}
+
+	public queryWebhookDetails = async (): Promise<WebhookConfigurationDetailsBody[]> => {
+		return [{
+			url: 'https://dummy.com/webhook',
+			createTime: 123456,
+			lastUpdateTime: 234567,
+			deviceList: 'ALL',
+			enable: true
+		}]
 	}
 }
 
@@ -88,13 +98,13 @@ describe('queryWebhookConfigure', () => {
 	test<LocalTestContext>('success to query webhook configure', async ({ switchbot }) => {
 		const actual = await switchbot.queryWebhookConfigure('https://dummy.com/webhook')
 
-		const expected: WebhookConfigurationDetailsBody = {
+		const expected: WebhookConfigurationDetailsBody[] = [{
 			url: 'https://dummy.com/webhook',
 			createTime: 123456,
 			lastUpdateTime: 234567,
 			deviceList: 'ALL',
 			enable: true
-		}
+		}]
 
 		expect(actual).toEqual(expected)
 	})

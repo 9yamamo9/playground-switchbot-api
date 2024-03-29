@@ -1,5 +1,12 @@
 import { ISwitchbotResource } from './switchbot'
-import { Device, DeviceList, DeviceStatus, MotionSensorStatus, WebhookConfiguration } from '../type/switchbot'
+import {
+	Device,
+	DeviceList,
+	DeviceStatus,
+	MotionSensorStatus,
+	WebhookConfiguration, WebhookConfigurationDetails,
+	WebhookConfigurationDetailsBody
+} from '../type/switchbot'
 import * as crypto from 'crypto'
 import { v4 as uuid } from 'uuid'
 import { IHeaders } from 'typed-rest-client/Interfaces'
@@ -60,7 +67,7 @@ export default class SwitchBotResource implements ISwitchbotResource {
 		return result.body
 	}
 
-	public queryWebhookConfigure = async (): Promise<string[]> => {
+	public queryWebhookUrls = async (): Promise<string[]> => {
 		const response = await this.client.create<WebhookConfiguration>(
 			`/${this.apiVersion}/webhook/queryWebhook`,
 			{ action: 'queryUrl' },
@@ -72,6 +79,20 @@ export default class SwitchBotResource implements ISwitchbotResource {
 		if (!result) throw Error('Failed to query webhook configuration.')
 
 		return result.body.urls
+	}
+
+	public queryWebhookDetails = async (url: string): Promise<WebhookConfigurationDetailsBody[]> => {
+		const response = await this.client.create<WebhookConfigurationDetails>(
+			`${this.apiVersion}/webhook/queryWebhook`,
+			{ action: 'queryDetails', url: url },
+			{ additionalHeaders: this.headers }
+		)
+
+		const result = response.result
+
+		if (!result) throw Error('Failed to query webhook configuration details.')
+
+		return result.body
 	}
 
 	private validate = (value: string | undefined): string => {
