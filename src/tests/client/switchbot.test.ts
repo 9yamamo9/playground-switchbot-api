@@ -140,3 +140,13 @@ describe('setWebhookConfigure', () => {
 		expect(actual.statusCode).toEqual(expected)
 	})
 })
+
+describe('unsetWebhookConfigure', () => {
+	test<LocalTestContext>('success to unset webhook configure', async ({switchbot}) => {
+		const actual = await switchbot.unsetWebhookConfigure('https://dummy.com/webhook')
+
+		const expected: number = 100
+
+		expect(actual.statusCode).toEqual(expected)
+	})
+})

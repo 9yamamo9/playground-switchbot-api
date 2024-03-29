@@ -23,8 +23,8 @@ async function main() {
 		console.log('deviceStatus:', deviceStatus)
 	}
 
-	// const result = await switchbot.setWebhookConfigure(webhookUrl)
-	// console.log('Set Webhook Configuration Result: ', result)
+	const result = await switchbot.setWebhookConfigure(webhookUrl)
+	console.log('Set Webhook Configuration Result: ', result)
 
 	const webhookConfiguration = await switchbot.queryWebhookConfigure(webhookUrl)
 	console.log('Webhook Configuration: ', webhookConfiguration)
