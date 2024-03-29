@@ -4,6 +4,7 @@ import { inject, injectable } from 'tsyringe'
 export interface ISwitchbotResource {
 	getDevices: () => Promise<Device[]>
 	getDeviceStatus: (deviceId: string) => Promise<MotionSensorStatus>
+	queryWebhookConfigure: () => Promise<string[]>
 }
 
 @injectable()
@@ -22,5 +23,9 @@ export default class Switchbot {
 
 	public getDeviceStatus = async (deviceId: string) => {
 		return await this.resource.getDeviceStatus(deviceId)
+	}
+
+	public queryWebhookConfigure = async () => {
+		return await this.resource.queryWebhookConfigure()
 	}
 }

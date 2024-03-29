@@ -1,9 +1,8 @@
 import 'reflect-metadata'
 import Switchbot, { ISwitchbotResource } from '../../lib/client/switchbot'
-import { Device, MotionSensorStatus, WebhookConfiguration, WebhookConfigurationBody } from '../../lib/type/switchbot'
+import { Device, MotionSensorStatus } from '../../lib/type/switchbot'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { container } from 'tsyringe'
-import { an, ay } from 'vitest/dist/reporters-P7C2ytIv'
 
 class FakeSwitchbotResource implements ISwitchbotResource {
 	public getDevices = async (): Promise<Device[]> => {
