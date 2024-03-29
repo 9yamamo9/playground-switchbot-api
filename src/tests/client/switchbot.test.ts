@@ -59,6 +59,16 @@ class FakeSwitchbotResource implements ISwitchbotResource {
 			message: ""
 		}
 	}
+
+	public unsetWebhook = async (url: string): Promise<SetWebhookConfiguration> => {
+		console.log('URL: ', url)
+
+		return {
+			statusCode: 100,
+			body: {},
+			message: ""
+		}
+	}
 }
 
 interface LocalTestContext {

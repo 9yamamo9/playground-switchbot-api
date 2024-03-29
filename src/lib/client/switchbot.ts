@@ -7,6 +7,7 @@ export interface ISwitchbotResource {
 	queryWebhookUrls: () => Promise<string[]>
 	queryWebhookDetails: (url: string) => Promise<WebhookConfigurationDetailsBody[]>
 	setWebhook: (url: string) => Promise<SetWebhookConfiguration>
+	unsetWebhook: (url: string) => Promise<SetWebhookConfiguration>
 }
 
 @injectable()
@@ -37,5 +38,9 @@ export default class Switchbot {
 
 	public setWebhookConfigure = async (url: string) => {
 		return await this.resource.setWebhook(url)
+	}
+
+	public unsetWebhookConfigure = async (url: string) => {
+		return await this.resource.unsetWebhook(url)
 	}
 }

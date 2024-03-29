@@ -83,7 +83,7 @@ export default class SwitchBotResource implements ISwitchbotResource {
 
 	public queryWebhookDetails = async (url: string): Promise<WebhookConfigurationDetailsBody[]> => {
 		const response = await this.client.create<WebhookConfigurationDetails>(
-			`${this.apiVersion}/webhook/queryWebhook`,
+			`/${this.apiVersion}/webhook/queryWebhook`,
 			{ action: 'queryDetails', url: url },
 			{ additionalHeaders: this.headers }
 		)
@@ -97,14 +97,28 @@ export default class SwitchBotResource implements ISwitchbotResource {
 
 	public setWebhook = async (url: string): Promise<SetWebhookConfiguration> => {
 		const response = await this.client.create<SetWebhookConfiguration>(
-			`${this.apiVersion}/webhook/setupWebhook`,
+			`/${this.apiVersion}/webhook/setupWebhook`,
 			{ action: 'setupWebhook', url: url, deviceList: 'ALL' },
 			{ additionalHeaders: this.headers }
 		)
 
 		const result = response.result
 
-		if (!result) throw ('Failed to set webhook configuration.')
+		if (!result) throw Error('Failed to set webhook configuration.')
+
+		return result
+	}
+
+	public unsetWebhook = async (url: string): Promise<SetWebhookConfiguration> => {
+		const response = await this.client.create<SetWebhookConfiguration>(
+			`/${this.apiVersion}/webhook/deleteWebhook`,
+			{ action: 'deleteWebhook', url: url },
+			{ additionalHeaders: this.headers }
+		)
+
+		const result = response.result
+
+		if (!result) throw Error('Failed to unset a webhook configuration.')
 
 		return result
 	}
