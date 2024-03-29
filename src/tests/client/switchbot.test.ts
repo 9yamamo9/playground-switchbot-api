@@ -1,8 +1,9 @@
 import 'reflect-metadata'
 import Switchbot, { ISwitchbotResource } from '../../lib/client/switchbot'
-import { Device, MotionSensorStatus } from '../../lib/type/switchbot'
+import { Device, MotionSensorStatus, WebhookConfiguration, WebhookConfigurationBody } from '../../lib/type/switchbot'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { container } from 'tsyringe'
+import { an, ay } from 'vitest/dist/reporters-P7C2ytIv'
 
 class FakeSwitchbotResource implements ISwitchbotResource {
 	public getDevices = async (): Promise<Device[]> => {
@@ -25,6 +26,12 @@ class FakeSwitchbotResource implements ISwitchbotResource {
 			battery: 0,
 			version: ''
 		}
+	}
+
+	public queryWebhookConfigure = async (): Promise<string[]> => {
+		return [
+			'https://dummy.com/webhook'
+		]
 	}
 }
 
@@ -75,5 +82,15 @@ describe('getDeviceStatus', () => {
 
 	test<LocalTestContext>('device is no exist', async ({ switchbot }) => {
 		await expect(() => switchbot.getDeviceStatus('dummy')).rejects.toThrowError('Filed to get device status.')
+	})
+})
+
+describe('queryWebhook', () => {
+	test<LocalTestContext>('success to query webhook configure', async ({ switchbot }) => {
+		const actual = await switchbot.queryWebhookConfigure()
+
+		const expected: string[] = ['https://dummy.com/webhook']
+
+		expect(actual).toEqual(expected)
 	})
 })

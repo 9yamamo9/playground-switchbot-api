@@ -17,6 +17,11 @@ export interface MotionSensorStatus {
 	hubDeviceId: string
 }
 
+export type WebhookConfiguration = BaseResponse & { body: WebhookConfigurationBody}
+export interface WebhookConfigurationBody {
+	urls: string[]
+}
+
 interface BaseResponse {
 	statusCode: number
 	message: string
