@@ -1,2 +1,3 @@
 export SWITCHBOT_API_TOKEN=
 export SWITCHBOT_SECRET=
+export WEBHOOK_URL=
