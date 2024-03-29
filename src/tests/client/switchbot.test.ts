@@ -115,3 +115,13 @@ describe('queryWebhookConfigure', () => {
 		await expect(() => switchbot.queryWebhookConfigure('https://no.exist.dummy.com/webhook')).rejects.toThrowError('No exist is a webhook url.')
 	})
 })
+
+describe('setWebhookConfigure', () => {
+	test<LocalTestContext>('success to set webhook configure', async({ switchbot }) => {
+		const actual = await switchbot.setWebhookConfigure(url: string)
+
+		const expected: number = 100
+
+		expect(actual).toEqual(expected)
+	})
+})

@@ -4,11 +4,8 @@ export type DeviceList = BaseResponse & {
 		infraredRemoteList: InfraredRemote[]
 	}
 }
-
 export type Device = BaseDevice
-
 export type DeviceStatus = BaseResponse & { body: MotionSensorStatus }
-
 export interface MotionSensorStatus {
 	deviceId: string
 	deviceType: string
@@ -16,15 +13,12 @@ export interface MotionSensorStatus {
 	version: string
 	hubDeviceId: string
 }
-
 export type WebhookConfiguration = BaseResponse & { body: WebhookConfigurationBody}
-
 export interface WebhookConfigurationBody {
 	urls: string[]
 }
-
 export type WebhookConfigurationDetails = BaseResponse & { body: WebhookConfigurationDetailsBody[] }
-
+export type SetWebhookConfiguration = BaseResponse & { body: object }
 export interface WebhookConfigurationDetailsBody {
 	url: string
 	createTime: number
@@ -33,11 +27,11 @@ export interface WebhookConfigurationDetailsBody {
 	enable: boolean
 }
 
+
 interface BaseResponse {
 	statusCode: number
 	message: string
 }
-
 interface BaseDevice {
 	deviceId: string
 	deviceName: string
@@ -45,7 +39,6 @@ interface BaseDevice {
 	enableCloudService: boolean
 	hubDeviceId: string
 }
-
 interface InfraredRemote {
 	deviceId: string
 	deviceName: string
