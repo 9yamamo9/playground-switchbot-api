@@ -108,4 +108,8 @@ describe('queryWebhookConfigure', () => {
 
 		expect(actual).toEqual(expected)
 	})
+
+	test<LocalTestContext>('no exist is webhook url', async ({ switchbot }) => {
+		await expect(() => switchbot.queryWebhookConfigure('https://no.exist.dummy.com/webhook')).rejects.toThrowError('No exist is a webhook url')
+	})
 })
