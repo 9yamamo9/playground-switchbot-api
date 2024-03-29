@@ -18,8 +18,19 @@ export interface MotionSensorStatus {
 }
 
 export type WebhookConfiguration = BaseResponse & { body: WebhookConfigurationBody}
+
 export interface WebhookConfigurationBody {
 	urls: string[]
+}
+
+export type WebhookConfigurationDetails = BaseResponse & { body: WebhookConfigurationDetailsBody[] }
+
+export interface WebhookConfigurationDetailsBody {
+	url: string
+	createTime: number
+	lastUpdateTime: number
+	deviceList: string
+	enable: boolean
 }
 
 interface BaseResponse {

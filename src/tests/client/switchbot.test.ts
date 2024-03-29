@@ -1,6 +1,6 @@
 import 'reflect-metadata'
 import Switchbot, { ISwitchbotResource } from '../../lib/client/switchbot'
-import { Device, MotionSensorStatus } from '../../lib/type/switchbot'
+import { Device, MotionSensorStatus, WebhookConfigurationDetailsBody } from '../../lib/type/switchbot'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { container } from 'tsyringe'
 
@@ -84,11 +84,17 @@ describe('getDeviceStatus', () => {
 	})
 })
 
-describe('queryWebhook', () => {
+describe('queryWebhookConfigure', () => {
 	test<LocalTestContext>('success to query webhook configure', async ({ switchbot }) => {
-		const actual = await switchbot.queryWebhookConfigure()
+		const actual = await switchbot.queryWebhookConfigure('https://dummy.com/webhook')
 
-		const expected: string[] = ['https://dummy.com/webhook']
+		const expected: WebhookConfigurationDetailsBody = {
+			url: 'https://dummy.com/webhook',
+			createTime: 123456,
+			lastUpdateTime: 234567,
+			deviceList: 'ALL',
+			enable: true
+		}
 
 		expect(actual).toEqual(expected)
 	})
