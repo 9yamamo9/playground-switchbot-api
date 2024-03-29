@@ -1,6 +1,11 @@
 import 'reflect-metadata'
 import Switchbot, { ISwitchbotResource } from '../../lib/client/switchbot'
-import { Device, MotionSensorStatus, WebhookConfigurationDetailsBody } from '../../lib/type/switchbot'
+import {
+	Device,
+	MotionSensorStatus,
+	SetWebhookConfiguration,
+	WebhookConfigurationDetailsBody
+} from '../../lib/type/switchbot'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { container } from 'tsyringe'
 
@@ -43,6 +48,16 @@ class FakeSwitchbotResource implements ISwitchbotResource {
 			deviceList: 'ALL',
 			enable: true
 		}]
+	}
+
+	public setWebhook = async (url: string): Promise<SetWebhookConfiguration> => {
+		console.log('URL: ', url)
+
+		return {
+			statusCode: 100,
+			body: {},
+			message: ""
+		}
 	}
 }
 
@@ -118,10 +133,10 @@ describe('queryWebhookConfigure', () => {
 
 describe('setWebhookConfigure', () => {
 	test<LocalTestContext>('success to set webhook configure', async({ switchbot }) => {
-		const actual = await switchbot.setWebhookConfigure(url: string)
+		const actual = await switchbot.setWebhookConfigure('https://dummy.com/webhook')
 
 		const expected: number = 100
 
-		expect(actual).toEqual(expected)
+		expect(actual.statusCode).toEqual(expected)
 	})
 })

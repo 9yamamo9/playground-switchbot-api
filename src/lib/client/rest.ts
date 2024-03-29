@@ -3,7 +3,7 @@ import {
 	Device,
 	DeviceList,
 	DeviceStatus,
-	MotionSensorStatus,
+	MotionSensorStatus, SetWebhookConfiguration,
 	WebhookConfiguration, WebhookConfigurationDetails,
 	WebhookConfigurationDetailsBody
 } from '../type/switchbot'
@@ -93,6 +93,20 @@ export default class SwitchBotResource implements ISwitchbotResource {
 		if (!result) throw Error('Failed to query webhook configuration details.')
 
 		return result.body
+	}
+
+	public setWebhook = async (url: string): Promise<SetWebhookConfiguration> => {
+		const response = await this.client.create<SetWebhookConfiguration>(
+			`${this.apiVersion}/webhook/setupWebhook`,
+			{ action: 'setupWebhook', url: url, deviceList: 'ALL' },
+			{ additionalHeaders: this.headers }
+		)
+
+		const result = response.result
+
+		if (!result) throw ('Failed to set webhook configuration.')
+
+		return result
 	}
 
 	private validate = (value: string | undefined): string => {
