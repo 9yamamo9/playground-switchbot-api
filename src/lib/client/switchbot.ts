@@ -29,7 +29,7 @@ export default class Switchbot {
 	public queryWebhookConfigure = async (url: string) => {
 		const urls = await this.resource.queryWebhookUrls()
 
-		// if (!urls.includes(url)) throw Error('A target Webhook URL is not exist.')
+		if (!urls.includes(url)) throw Error('No exist is a webhook url.')
 
 		return await this.resource.queryWebhookDetails(url)
 	}

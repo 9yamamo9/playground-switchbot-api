@@ -33,7 +33,9 @@ class FakeSwitchbotResource implements ISwitchbotResource {
 		]
 	}
 
-	public queryWebhookDetails = async (): Promise<WebhookConfigurationDetailsBody[]> => {
+	public queryWebhookDetails = async (url: string): Promise<WebhookConfigurationDetailsBody[]> => {
+		console.log('URL: ', url)
+
 		return [{
 			url: 'https://dummy.com/webhook',
 			createTime: 123456,
@@ -110,6 +112,6 @@ describe('queryWebhookConfigure', () => {
 	})
 
 	test<LocalTestContext>('no exist is webhook url', async ({ switchbot }) => {
-		await expect(() => switchbot.queryWebhookConfigure('https://no.exist.dummy.com/webhook')).rejects.toThrowError('No exist is a webhook url')
+		await expect(() => switchbot.queryWebhookConfigure('https://no.exist.dummy.com/webhook')).rejects.toThrowError('No exist is a webhook url.')
 	})
 })
